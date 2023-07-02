@@ -13,7 +13,7 @@ class Message(BaseModel):
 
 @app.post("/ask")
 async def ask(request: Request, message: Message) -> dict:
-    # Get the user-defined auth key from the environment variables
+    # Get the user-defined auth key from the environment variablesd
     user_auth_key = os.getenv('USER_AUTH_KEY')
     
     # Check if the user has defined an auth key,
