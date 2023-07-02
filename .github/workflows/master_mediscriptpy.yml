@@ -71,4 +71,4 @@ jobs:
           app-name: 'mediscriptPy'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F5943316F0A4BC2B5A7FE521FE52F7B }}
-          start-up-command: 'uvicorn main:app --host'
+          start-up-command: 'gunicorn -w 2 -k uvicorn.workers.UvicornWorker main:app'
