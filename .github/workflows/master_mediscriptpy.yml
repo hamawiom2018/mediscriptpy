@@ -22,8 +22,18 @@ jobs:
         with:
           python-version: '3.11'
 
-      
-      
+      - name: Create and start virtual environment
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          - name: Set up dependency caching for faster installs
+          uses: actions/cache@v3
+          with:
+            path: ~/.cache/pip
+            key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+            restore-keys: |
+              ${{ runner.os }}-pip-
+
       - name: Install dependencies
         run: pip install -r requirements.txt
         
@@ -33,8 +43,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: python-app
-          path: .
-  
+          path: |
+            . 
+            !venv/
 
   deploy:
     runs-on: ubuntu-latest
