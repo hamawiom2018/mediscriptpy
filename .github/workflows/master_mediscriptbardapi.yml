@@ -43,6 +43,11 @@ jobs:
           path: |
             . 
             !venv/
+      # uvicorn main:app --reload
+      - name: Run uvicorn
+        run: |
+          uvicorn main:app --reload
+          # uvicorn main:app --reload --host
 
   deploy:
     runs-on: ubuntu-latest
