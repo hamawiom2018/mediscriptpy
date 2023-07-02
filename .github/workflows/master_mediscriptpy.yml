@@ -54,17 +54,21 @@ jobs:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
+
+    
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
           name: python-app
           path: .
-          
-      - name: 'Deploy to Azure Web App'
+      # deploy using uvicorn
+      - 
+        name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
           app-name: 'mediscriptPy'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5F5943316F0A4BC2B5A7FE521FE52F7B }}
+          start-up-command: 'uvicorn main:app --host'
